@@ -49,7 +49,7 @@ const get_contact_by_id = async (req, res) => {
     }
     res.send(fetchOne)
 }
-const save_contact =  async (req, res) => {
+const save_contact = async (req, res) => {
     const save_contact = await contacts.create({
         fullName: req.body.name,
         Email: req.body.email,
@@ -66,7 +66,7 @@ const save_contact =  async (req, res) => {
         })
 }
 
-module.exports={
+module.exports = {
     get_all_contacts,
     get_contact_by_id,
     save_contact

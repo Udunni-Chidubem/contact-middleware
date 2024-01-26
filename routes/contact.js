@@ -3,8 +3,6 @@ const router = express.Router();
 const body_parser = require('body-parser');
 const contactsController = require("../controllers/contacts")
 
-
-
 // middlewares
 router.use(body_parser.json());
 router.use(body_parser.urlencoded({ extended: true }));
