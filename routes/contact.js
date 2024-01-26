@@ -1,80 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const body_parser = require('body-parser');
-const db = require("../models");
-const responses = require("../helpers/responses");
-const { Op } = require("sequelize");
-const { contacts } = db;
+const contactsController = require("../controllers/contacts")
+
+
 
 // middlewares
 router.use(body_parser.json());
 router.use(body_parser.urlencoded({ extended: true }));
 
 // get all contacts from database
-router.get('/fetchall', async (req, res) => {
-    var fetchAll = await contacts.findAll();
-    res.send(fetchAll)
-})
+router.get('/fetchall', contactsController.get_all_contacts);
 
 // get a particular contact from database by
-router.get('/fetch/:query', async (req, res) => {
-    // handling of non-integer queries
-    if (isNaN(req.params.query)) {
-        try {
-            var fetchOne = await contacts.findOne({
-                where:
-                {
-                    [Op.or]:
-                        [
-                            { Email: req.params.query },
-                            { phoneNum: req.params.query }
-
-                        ]
-                }
-            });
-        }
-        catch (err) {
-            console.log(err)
-            res.send("no contact found with the query " + req.params.query)
-        }
-    }
-    // handling of integer queries
-    else {
-        try {
-            var fetchOne = await contacts.findOne({
-                where:
-                {
-                    [Op.or]:
-                        [
-                            { id: req.params.query },
-                            { phoneNum: req.params.query }
-                        ]
-                }
-            });
-        }
-        catch (err) {
-            console.log(err)
-            res.send("no contact found with the query " + req.params.query)
-        }
-    }
-    res.send(fetchOne)
-})
+router.get('/fetch/:query', contactsController.get_contact_by_id);
 
 // saving data to database
-router.post('/save', async (req, res) => {
-    const save_contact = await contacts.create({
-        fullName: req.body.name,
-        Email: req.body.email,
-        phoneNumber: req.body.phone,
-        date: req.body.date,
-        site: "crm4sme"
-    })
-        .then(() => {
-            result = responses.success(req.body)
-            res.send(result)
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-})
+router.post('/save', contactsController.save_contact);
+
 module.exports = router;
