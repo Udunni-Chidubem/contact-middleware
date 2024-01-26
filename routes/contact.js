@@ -65,7 +65,7 @@ router.post('/save', async (req, res) => {
     const save_contact = await contacts.create({
         fullName: req.body.name,
         Email: req.body.email,
-        phoneNum: req.body.phone,
+        phoneNumber: req.body.phone,
         date: req.body.date,
         site: "crm4sme"
     })

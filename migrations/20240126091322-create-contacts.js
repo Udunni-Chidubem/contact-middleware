@@ -10,16 +10,26 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       fullName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       Email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique:true
       },
-      phoneNum: {
-        type: Sequelize.STRING
+      phoneNumber: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
+      },
+      date: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       site: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
