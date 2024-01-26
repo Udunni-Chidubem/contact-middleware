@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const body_parser = require('body-parser');
 const db = require("../models");
+const responses = require("../helpers/responses");
 const { Op } = require("sequelize");
 const { contacts } = db;
 
@@ -69,8 +70,8 @@ router.post('/save', async (req, res) => {
         site: "crm4sme"
     })
         .then(() => {
-            console.log("inserted successfully")
-            res.send(req.body)
+            result = responses.success(req.body)
+            res.send(result)
         })
         .catch((err) => {
             console.log(err);
